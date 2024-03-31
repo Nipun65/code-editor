@@ -1,23 +1,39 @@
-import { useEffect, useReducer, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import { File as FileProps } from "@/interfaces";
 import { constants } from "@/utils";
 import Divider from "./Divider";
 import Folder from "./svgs/Folder";
 import Arrow from "./svgs/Arrow";
 import File from "./svgs/File";
+import { twMerge } from "tailwind-merge";
 
 interface FileTreeProps {
-  setSelectedFile: any;
-  setOpenFiles: any;
+  setSelectedFile: Dispatch<SetStateAction<FileProps>>;
+  setOpenFiles: Dispatch<SetStateAction<FileProps[]>>;
+  selectedFile: FileProps;
+  className: string;
 }
 
 const FileTree: React.FC<FileTreeProps> = ({
   setSelectedFile,
   setOpenFiles,
+  selectedFile,
+  className,
 }) => {
-  const [folderData, setFolderData] = useState<any>(constants?.FILES);
+  const [folderData, setFolderData] = useState<FileProps[]>(constants?.FILES);
   const [data, dispatch] = useReducer(reducer, []);
 
-  function checkTypeAndUpdateFlag(obj: any, state: any, type?: string) {
+  function checkTypeAndUpdateFlag(
+    obj: FileProps,
+    state: FileProps,
+    type?: string
+  ): FileProps | {} {
     if (
       state.name === obj.name &&
       state?.id === obj.id &&
@@ -33,11 +49,15 @@ const FileTree: React.FC<FileTreeProps> = ({
 
       return { ...state, isOpen, isSelectedFile };
     } else if (state?.children) {
+      const children = state?.children.map((child: FileProps) =>
+        checkTypeAndUpdateFlag(obj, child, type)
+      ) as FileProps[];
       return {
         ...state,
-        children: state?.children.map((child: any) =>
-          checkTypeAndUpdateFlag(obj, child, type)
-        ),
+        children,
+        isOpen: state?.isOpen
+          ? true
+          : children.some((child) => child.isSelectedFile || child.isOpen),
       };
     } else if (state.type === "file") {
       let isSelectedFile = state?.isSelectedFile;
@@ -46,46 +66,55 @@ const FileTree: React.FC<FileTreeProps> = ({
       }
       return { ...state, isSelectedFile };
     }
+    return {};
   }
 
-  function reducer(state: any, action: any) {
+  function reducer(state: FileProps[], action: any) {
     if (action.type === "updated data") {
       return action.data;
     } else if (action.type === "open or close") {
       if (action.data.type === "dir") {
-        const ans = folderData?.map((value: any) => {
+        const result = folderData?.map((value: FileProps) => {
           return checkTypeAndUpdateFlag(action.data, value);
-        });
-        setFolderData(ans);
-        return updateJSX(ans);
+        }) as FileProps[];
+
+        setFolderData(result);
+        return updateJSX(result);
       }
     } else if (action.type === "append" && action.data.type === "file") {
-      const ans = folderData?.map((value: any) => {
+      const result = folderData?.map((value: FileProps) => {
         return checkTypeAndUpdateFlag(action.data, value, "openfile");
-      });
-      setFolderData(ans);
-      const obj = action.data;
-
-      return updateJSX(ans);
+      }) as FileProps[];
+      setFolderData(result);
+      return updateJSX(result);
     }
   }
 
-  function updateJSX(arr: any) {
-    return arr?.map((value: any) => {
+  function updateJSX(arr: FileProps[]) {
+    return arr?.map((value: FileProps) => {
       return checkFileType(value);
     });
   }
+
+  useEffect(() => {
+    const result = folderData?.map((value: FileProps) => {
+      return checkTypeAndUpdateFlag(selectedFile, value, "openfile");
+    }) as FileProps[];
+    setFolderData(result);
+    const updateContent = updateJSX(result);
+    dispatch({ type: "updated data", data: updateContent });
+  }, [selectedFile.id]);
 
   useEffect(() => {
     const result = updateJSX(constants?.FILES);
     dispatch({ type: "updated data", data: result });
   }, []);
 
-  const handleFileSelection = (obj: any) => {
+  const handleFileSelection = (obj: FileProps) => {
     dispatch({ type: "append", data: obj });
     setSelectedFile(obj);
-    setOpenFiles((preveState: any) => {
-      const objIndex = preveState?.findIndex((value: any) => {
+    setOpenFiles((preveState: FileProps[]) => {
+      const objIndex = preveState?.findIndex((value: FileProps) => {
         return value.id === obj.id && value.parentId === obj.parentId;
       });
 
@@ -98,7 +127,7 @@ const FileTree: React.FC<FileTreeProps> = ({
     });
   };
 
-  function checkFileType(obj: any) {
+  function checkFileType(obj: FileProps) {
     if (obj.type === "file") {
       return (
         <li
@@ -124,7 +153,7 @@ const FileTree: React.FC<FileTreeProps> = ({
         </li>
       );
     } else if (obj.type === "dir") {
-      const childrenElements = obj.children?.map((child: any) => {
+      const childrenElements = obj.children?.map((child: FileProps) => {
         return (
           <div
             key={child.id}
@@ -162,14 +191,16 @@ const FileTree: React.FC<FileTreeProps> = ({
               {obj.name}
             </span>
           </li>
-          {obj.isOpen && <ul key={obj.children.id}>{childrenElements}</ul>}
+          {obj.isOpen && <ul key={obj?.id}>{childrenElements}</ul>}
         </ul>
       );
     }
   }
 
   return (
-    <div className="bg-[#13161a] p-3 rounded-md w-[25%] overflow-auto">
+    <div
+      className={twMerge(`bg-[#13161a] p-3 rounded-md max-h-[70vh]`, className)}
+    >
       <p className="text-[#CCCCCC] mb-2">Folder & Files</p>
       <Divider />
       {data}

@@ -1,9 +1,10 @@
+import { File } from "@/interfaces";
 import Cross from "./svgs/Cross";
 
 interface Data {
-  file: any;
-  onClick: (value: string, file: any) => void;
-  selectedFile: any;
+  file: File;
+  onClick: (value: string, file: File) => void;
+  selectedFile: File;
 }
 
 interface FileTabProps {
@@ -20,7 +21,7 @@ const FileTab: React.FC<FileTabProps> = ({ data }) => {
 
   return (
     <li
-      className={`px-5 py-2 flex gap-3 rounded-b-none items-center cursor-pointer focus-visible:outline-none focus-visible:border-white focus-visible:border border border-transparent focus:rounded-t-md ${bgColor} ${fileMatch && "rounded-md"}`}
+      className={`px-5 py-2 flex gap-3 rounded-b-none items-center cursor-pointer focus-visible:outline-none focus-visible:border-white focus-visible:border border border-transparent focus:rounded-t-md ${!fileMatch && "hover:bg-[#007AFF1d]"} ${bgColor} ${fileMatch && "rounded-md"}`}
       onClick={() => data.onClick("selectfile", data.file)}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
@@ -35,15 +36,18 @@ const FileTab: React.FC<FileTabProps> = ({ data }) => {
           {data?.file?.extension}
         </p>
       </div>
-      <Cross
-        fill={`${fileMatch ? "white" : "#5D677D"}`}
-        onClick={() => data.onClick("cross", data.file)}
-        onKeyDown={(e: any) => {
+      <div
+        onMouseDown={() => data.onClick("cross", data.file)}
+        onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === "Enter") {
             data.onClick("cross", data.file);
           }
         }}
-      />
+        className={`p-1 hover:bg-zinc-400 rounded focus-visible:bg-zinc-400 focus-visible:outline-none focus:border-white focus:border border border-transparent`}
+        tabIndex={0}
+      >
+        <Cross fill={`${fileMatch ? "white" : "#5D677D"}`} />
+      </div>
     </li>
   );
 };

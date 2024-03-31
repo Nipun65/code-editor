@@ -1,10 +1,8 @@
 interface CrossProps {
   fill: string;
-  onClick: any;
-  onKeyDown: any;
 }
 
-const Cross: React.FC<CrossProps> = ({ fill, onClick, onKeyDown }) => {
+const Cross: React.FC<CrossProps> = ({ fill }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -12,10 +10,6 @@ const Cross: React.FC<CrossProps> = ({ fill, onClick, onKeyDown }) => {
       height="9"
       viewBox="0 0 8 9"
       fill="none"
-      tabIndex={0}
-      onMouseDown={onClick}
-      onKeyDown={onKeyDown}
-      className="focus-visible:outline-none focus:border-white focus:border"
     >
       <path
         fillRule="evenodd"

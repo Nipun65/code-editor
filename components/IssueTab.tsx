@@ -6,9 +6,12 @@ interface dataProps {
   count: number;
   name: string;
   type: string;
+  issues: any;
 }
+
 interface IssueTabProps {
   data: dataProps;
+  setSelectedIssue: any;
 }
 
 const ISSUECOLORS: { [key: string]: string } = {
@@ -20,9 +23,19 @@ const ISSUECOLORS: { [key: string]: string } = {
   optimisation: "bg-[#66E3F4]",
 };
 
-const IssueTab: React.FC<IssueTabProps> = ({ data }) => {
+const IssueTab: React.FC<IssueTabProps> = ({ data, setSelectedIssue }) => {
   return (
-    <div className="flex gap-3 px-5 py-4 bg-[#191d23] hover:bg-[#007AFFB3] cursor-pointer rounded">
+    <div
+      className="flex gap-3 px-5 py-4 bg-[#191d23] hover:bg-[#007AFFB3] cursor-pointer rounded"
+      onClick={() => {
+        setSelectedIssue({
+          name: data.name,
+          type: data.type,
+          count: data.count,
+          issues: data.issues,
+        });
+      }}
+    >
       <div className="flex w-1/3 items-center gap-3">
         <p
           className={`rounded-full min-h-3 min-w-3 ${ISSUECOLORS[data.type]}`}

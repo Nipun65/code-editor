@@ -1,8 +1,8 @@
-import logo from "@/public/logo.svg";
 import Image from "next/image";
 import { constants } from "@/utils";
 import Navbar from "./Navbar";
 import Divider from "./Divider";
+import logo from "@/public/logo.svg";
 
 const Header = () => {
   return (

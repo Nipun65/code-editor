@@ -1,12 +1,14 @@
+import { Path } from "@/interfaces";
 import Link from "next/link";
 
 interface BreadCrumbsProps {
-  data: any;
+  data: Path[];
 }
+
 const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ data }) => {
   return (
     <div className="py-3 ml-1">
-      {data.map((value: any, index: number) => {
+      {data.map((value: Path, index: number) => {
         return (
           <Link
             href={value.path}

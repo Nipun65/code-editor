@@ -1,10 +1,11 @@
+import { Dispatch, SetStateAction } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface TabsProps {
-  data: any;
+  data: string[];
   className: string;
   activeTab: number;
-  setActiveTab: any;
+  setActiveTab: Dispatch<SetStateAction<number>>;
 }
 
 const Tabs: React.FC<TabsProps> = ({

@@ -1,28 +1,42 @@
-import React, { useEffect, useRef } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { Editor, loader } from "@monaco-editor/react";
+import { File } from "@/interfaces";
 import FileTab from "./FileTab";
+import { twMerge } from "tailwind-merge";
+import CollapseExpand from "./svgs/CollapseExpand";
+
+interface CollapseSideBar {
+  filetree: boolean;
+  issues: boolean;
+}
 
 interface CodeEditorProps {
   language: string;
   value: string;
-  setSelectedFile: any;
-  setOpenFiles: any;
-  openFiles: any;
-  selectedFile: any;
+  openFiles: File[];
+  selectedFile: File;
+  setSelectedFile: Dispatch<SetStateAction<File>>;
+  setOpenFiles: Dispatch<SetStateAction<File[]>>;
+  className: string;
+  setCollapseSideBar: Dispatch<SetStateAction<CollapseSideBar>>;
+  collapseSideBar: CollapseSideBar;
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
   language,
   value,
-  setSelectedFile,
-  setOpenFiles,
   openFiles,
+  setOpenFiles,
+  setSelectedFile,
   selectedFile,
+  className,
+  setCollapseSideBar,
+  collapseSideBar,
 }) => {
-  const editorRef = useRef<any>();
+  const editorRef = useRef<any>(null);
 
   const formatCode = () => {
-    editorRef.current?.getAction("editor.action.formatDocument").run();
+    editorRef?.current?.getAction("editor.action.formatDocument")._run();
   };
 
   useEffect(() => {
@@ -36,38 +50,51 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         inherit: false,
         rules: [],
       });
+
+      monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
     });
   }, []);
 
-  const handleFileClick = (value: string, file: any) => {
+  useEffect(() => {
+    formatCode();
+  }, [value]);
+
+  const handleFileClick = (value: string, file: File) => {
     if (value === "selectfile") {
       setSelectedFile({ ...file });
     } else if (value === "cross") {
       if (file.id === selectedFile.id) {
         const objIndex = openFiles.findIndex(
-          (obj: any) => obj.id === file.id && obj.parentId === file.parentId
+          (obj: File) => obj.id === file.id && obj.parentId === file.parentId
         );
+
         if (objIndex <= 0) {
-          setSelectedFile(openFiles[1]);
+          setSelectedFile({ ...openFiles[1] });
         } else {
-          setSelectedFile(openFiles[objIndex - 1]);
+          setSelectedFile({ ...openFiles[objIndex - 1] });
         }
       }
 
-      setOpenFiles((preveState: any) => {
+      setOpenFiles((preveState: File[]) => {
         const result = preveState.filter(
-          (value: any) =>
+          (value: File) =>
             !(value.id === file.id && value.parentId === file.parentId)
         );
+
         return result;
       });
     }
   };
 
   return (
-    <div className="w-[50%] rounded-md bg-[#13161a]">
+    <div
+      className={twMerge(
+        "rounded-md bg-[#13161a] h-[70vh] relative",
+        className
+      )}
+    >
       <ul className="flex overflow-auto mb-2 rounded-t-md">
-        {openFiles.map((value: any) => {
+        {openFiles.map((value: File) => {
           return (
             <FileTab
               key={value.id}
@@ -83,7 +110,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
 
       <Editor
         height="63vh"
-        defaultLanguage="javascript"
         language={language}
         value={value}
         options={{
@@ -92,13 +118,37 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           formatOnType: true,
         }}
         onMount={(editor, monaco) => {
-          if (editorRef && editorRef.current) editorRef.current = editor;
+          editorRef.current = editor;
           setTimeout(() => {
             formatCode();
           }, 1000);
         }}
         theme="custom-theme"
       />
+      <div
+        className="absolute bottom-3 -left-2 rounded-md bg-[#007AFF] p-1 cursor-pointer"
+        onClick={() => {
+          setCollapseSideBar((preveState) => {
+            return { ...preveState, filetree: !preveState.filetree };
+          });
+        }}
+      >
+        <CollapseExpand
+          className={`size-3 ${collapseSideBar.filetree ? "-rotate-90" : "rotate-90"}`}
+        />
+      </div>
+      <div
+        className="absolute bottom-3 -right-2 rounded-md bg-[#007AFF] p-1 cursor-pointer"
+        onClick={() => {
+          setCollapseSideBar((preveState) => {
+            return { ...preveState, issues: !preveState.issues };
+          });
+        }}
+      >
+        <CollapseExpand
+          className={`size-3 ${collapseSideBar.issues ? "rotate-90" : "-rotate-90"}`}
+        />
+      </div>
     </div>
   );
 };

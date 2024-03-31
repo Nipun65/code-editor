@@ -1,3 +1,5 @@
+import { File } from "@/interfaces";
+
 const TABS = [
   {
     name: "AI Audit",
@@ -22,7 +24,7 @@ const TABS = [
   },
 ];
 
-const FILES = [
+const FILES: File[] = [
   {
     name: "app",
     id: 1,
@@ -35,7 +37,6 @@ const FILES = [
         name: "layout",
         type: "file",
         extension: ".tsx",
-        isOpen: false,
         content: `const hello=()=> {\n alert('Hello world!');\n}`,
         isSelectedFile: false,
         parentId: 1,
@@ -45,7 +46,6 @@ const FILES = [
         name: "page",
         type: "file",
         extension: ".tsx",
-        isOpen: false,
         content: "console.log('page.tsx')",
         isSelectedFile: false,
         parentId: 1,
@@ -57,7 +57,6 @@ const FILES = [
     name: "next.config",
     type: "file",
     extension: ".mjs",
-    isOpen: false,
     content: "console.log('next.config.mjs')",
     isSelectedFile: false,
     id: 4,
@@ -67,7 +66,6 @@ const FILES = [
     name: "components",
     type: "dir",
     extension: "",
-    isOpen: false,
     id: 5,
     parentId: 0,
     children: [
@@ -75,7 +73,6 @@ const FILES = [
         name: "svgs",
         type: "dir",
         extension: "",
-        isOpen: false,
         id: 6,
         parentId: 5,
         children: [
@@ -83,8 +80,7 @@ const FILES = [
             name: "Arrow",
             type: "file",
             extension: ".tsx",
-            isOpen: false,
-            content: "console.log('Arrow.tsx')",
+            content: `console.log('Arrow.tsx')`,
             isSelectedFile: false,
             id: 7,
             parentId: 6,
@@ -93,7 +89,6 @@ const FILES = [
             name: "Cross",
             type: "file",
             extension: ".tsx",
-            isOpen: false,
             content: "console.log('Cross.tsx')",
             isSelectedFile: false,
             id: 8,
@@ -105,17 +100,15 @@ const FILES = [
         name: "Divider",
         type: "file",
         extension: ".tsx",
-        isOpen: false,
         isSelectedFile: false,
         id: 9,
         parentId: 5,
-        content: "console.log('Divider.tsx')",
+        content: `console.log('Divider.tsx')`,
       },
       {
         name: "Button",
         type: "file",
         extension: ".tsx",
-        isOpen: false,
         isSelectedFile: false,
         id: 10,
         parentId: 5,
@@ -127,37 +120,88 @@ const FILES = [
 
 const ISSUETABS = ["Current File", "Full Project"];
 
+const ISSUESDETAILS = [
+  {
+    issueTitle: "Lorem ipsum dolor sit ame",
+    description:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+    remediation:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+  },
+  {
+    issueTitle: "Lorem ipsum dolor sit ame",
+    description:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+    remediation:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+  },
+  {
+    issueTitle: "Lorem ipsum dolor sit pole amet sit sit amet orem ipsum",
+    description:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+    remediation:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+  },
+  {
+    issueTitle: "Lorem ipsum dolor sit ame",
+    description:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+    remediation:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+  },
+  {
+    issueTitle: "Lorem ipsum dolor sit pole amet sit sit amet orem ipsum",
+    description:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+    remediation:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+  },
+  {
+    issueTitle: "Lorem ipsum dolor sit pole amet sit sit amet orem ipsum",
+    description:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+    remediation:
+      "Lorem ipsum dolor sit amet, consec ascing elit, sed do eiusmod tpor incididunt ut labo et dolore magna aliqua. Ut enim ad minim veniam, is nostrud exercitation ullamco lris nisi ut aliquip. Consectetur adiiscing elit, se do eiusmod tempor indidut ut lbore et ore magna aliqua. om ipsum dolor sit amet ectr ig elit, sed do eiusmod tempor ididunt utio labore et dolore magna aliqua.",
+  },
+];
+
 const ISSUES = [
   {
     name: "Total Issues Found",
     count: 446,
     type: "total",
+    issues: ISSUESDETAILS,
   },
   {
     name: "High Severity Issues",
     count: 108,
     type: "high",
+    issues: ISSUESDETAILS,
   },
   {
     name: "Medium Severity Issues",
     count: 143,
     type: "medium",
+    issues: ISSUESDETAILS,
   },
   {
     name: "Low Severity Issues",
     count: 0,
     type: "low",
+    issues: ISSUESDETAILS,
   },
   {
     name: "Informational Issues",
     count: 68,
     type: "informational",
+    issues: ISSUESDETAILS,
   },
   {
     name: "Optimisation Issues",
     count: 127,
     type: "optimisation",
+    issues: ISSUESDETAILS,
   },
 ];
 
-export { TABS, FILES, ISSUETABS, ISSUES };
+export { TABS, FILES, ISSUETABS, ISSUES, ISSUESDETAILS };

@@ -1,9 +1,10 @@
 "use client";
+import { Path } from "@/interfaces";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface NavbarProps {
-  data: any;
+  data: Path[];
 }
 
 const Navbar: React.FC<NavbarProps> = ({ data }) => {
@@ -11,7 +12,7 @@ const Navbar: React.FC<NavbarProps> = ({ data }) => {
 
   return (
     <nav className="flex gap-4 text-[#5d677d]">
-      {data.map((value: any) => {
+      {data.map((value: Path) => {
         return (
           <Link
             href={value.path}
