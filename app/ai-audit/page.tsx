@@ -1,15 +1,8 @@
-"use client";
-
 import Layout from "@/components/Layout";
-import { usePathname } from "next/navigation";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import ProjectGroup from "@/components/ProjectGroup";
-import CodeEditor from "@/components/CodeEditor";
-import FileTree from "@/components/FileTree";
 
 const AIAudit = () => {
-  const path = usePathname();
-
   const BreadCrumbsData = [
     {
       name: "AI Audit",

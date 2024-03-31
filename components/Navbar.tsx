@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { twMerge } from "tailwind-merge";
 
 interface NavbarProps {
   data: any;
@@ -18,7 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ data }) => {
             href={value.path}
             className={`${
               path === value.path ? "text-[#1283ff] nav-border" : ""
-            } font-medium hover:text-[#3875b6]`}
+            } font-medium hover:text-[#3875b6] xs:text-xs lg:text-base`}
             key={value.name}
           >
             {value.name}

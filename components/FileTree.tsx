@@ -4,7 +4,6 @@ import Divider from "./Divider";
 import Folder from "./svgs/Folder";
 import Arrow from "./svgs/Arrow";
 import File from "./svgs/File";
-import { stat } from "fs";
 
 interface FileTreeProps {
   setSelectedFile: any;
@@ -19,7 +18,11 @@ const FileTree: React.FC<FileTreeProps> = ({
   const [data, dispatch] = useReducer(reducer, []);
 
   function checkTypeAndUpdateFlag(obj: any, state: any, type?: string) {
-    if (state.name === obj.name) {
+    if (
+      state.name === obj.name &&
+      state?.id === obj.id &&
+      state?.parentId === obj.parentId
+    ) {
       let isSelectedFile = state?.isSelectedFile;
       let isOpen = state?.isOpen;
       if (type === "openfile") {
@@ -61,32 +64,9 @@ const FileTree: React.FC<FileTreeProps> = ({
         return checkTypeAndUpdateFlag(action.data, value, "openfile");
       });
       setFolderData(ans);
-      setSelectedFile({ name: action.data.name, content: action.data.content });
-      console.log(ans, "update file selcted file");
+      const obj = action.data;
+
       return updateJSX(ans);
-      // setOpenFiles((preveState: any) => {
-      //   console.log(preveState);
-
-      //   preveState?.forEach((element: any) => {
-      //     if (
-      //       action.data.name === element.name &&
-      //       action.data.parent === element.parent
-      //     ) {
-      //       boolean = true;
-      //     }
-      //   });
-      // });
-      // if (!boolean) {
-      //   setOpenFiles((preveState: any) =>
-      //     preveState?.push({
-      //       name: action?.data?.name,
-      //       content: action?.data?.content,
-      //       parent: action?.data?.parent,
-      //     })
-      //   );
-      // }
-
-      // return state;
     }
   }
 
@@ -101,28 +81,53 @@ const FileTree: React.FC<FileTreeProps> = ({
     dispatch({ type: "updated data", data: result });
   }, []);
 
+  const handleFileSelection = (obj: any) => {
+    dispatch({ type: "append", data: obj });
+    setSelectedFile(obj);
+    setOpenFiles((preveState: any) => {
+      const objIndex = preveState?.findIndex((value: any) => {
+        return value.id === obj.id && value.parentId === obj.parentId;
+      });
+
+      if (objIndex === -1) {
+        preveState.push({
+          ...obj,
+        });
+      }
+      return preveState;
+    });
+  };
+
   function checkFileType(obj: any) {
     if (obj.type === "file") {
       return (
-        <div
-          key={obj.name}
+        <li
+          key={obj.id}
+          tabIndex={0}
           className="flex gap-2 my-2 items-center cursor-pointer ml-5"
           onClick={() => {
-            dispatch({ type: "append", data: obj });
+            handleFileSelection(obj);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleFileSelection(obj);
+            }
           }}
         >
           <File fill={obj.isSelectedFile ? "#0270e8" : "#AAAAAA"} />
-          <span className="text-[#CCCCCC]">
+          <span
+            className={obj.isSelectedFile ? "text-[#0270e8]" : "text-[#CCCCCC]"}
+          >
             {obj.name}
             {obj.extension}
           </span>
-        </div>
+        </li>
       );
     } else if (obj.type === "dir") {
       const childrenElements = obj.children?.map((child: any) => {
         return (
           <div
-            key={child.name}
+            key={child.id}
             className={child.type === "dir" ? "ml-4" : "ml-4"}
           >
             {checkFileType(child)}
@@ -130,12 +135,20 @@ const FileTree: React.FC<FileTreeProps> = ({
         );
       });
 
+      const handleOpenClose = () => {
+        dispatch({ type: "open or close", data: obj });
+      };
+
       return (
-        <div key={obj.name} className="text-[#CCCCCC] mt-2 cursor-pointer">
-          <div
-            className="items-center flex gap-2"
+        <ul key={obj.id} className="text-[#CCCCCC] mt-2 cursor-pointer">
+          <li
+            tabIndex={0}
+            className="flex items-center gap-2"
             onClick={() => {
-              if (dispatch) dispatch({ type: "open or close", data: obj });
+              handleOpenClose();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleOpenClose();
             }}
           >
             <Arrow
@@ -144,20 +157,20 @@ const FileTree: React.FC<FileTreeProps> = ({
             />
             <Folder fill={!obj.isOpen} />
             <span
-              className={`text-[#CCCCCC] ${obj.isOpen ? "text-[#0270e8]" : ""}`}
+              className={`${obj.isOpen ? "text-[#0270e8]" : "text-[#CCCCCC]"}`}
             >
               {obj.name}
             </span>
-          </div>
-          {obj.isOpen && <div>{childrenElements}</div>}
-        </div>
+          </li>
+          {obj.isOpen && <ul key={obj.children.id}>{childrenElements}</ul>}
+        </ul>
       );
     }
   }
 
   return (
     <div className="bg-[#13161a] p-3 rounded-md w-[25%] overflow-auto">
-      <p className="text-[#CCCCCC] py-2">Folder & Files</p>
+      <p className="text-[#CCCCCC] mb-2">Folder & Files</p>
       <Divider />
       {data}
     </div>

@@ -1,7 +1,7 @@
 import logo from "@/public/logo.svg";
 import Image from "next/image";
-import Navbar from "./Navbar";
 import { constants } from "@/utils";
+import Navbar from "./Navbar";
 import Divider from "./Divider";
 
 const Header = () => {
@@ -13,7 +13,7 @@ const Header = () => {
       </div>
       <div className="flex gap-3">
         <Navbar data={constants?.TABS} />
-        <Divider />
+        <Divider className="-my-3" />
         <p className="text-[#CCCCCC]">profile</p>
       </div>
     </div>

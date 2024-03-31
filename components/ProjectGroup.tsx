@@ -1,9 +1,11 @@
+"use client";
 import { useState } from "react";
 import Image from "next/image";
 import Divider from "./Divider";
 import Button from "./Button";
 import FileTree from "./FileTree";
 import CodeEditor from "./CodeEditor";
+import Issues from "./Issues";
 import projecticon from "@/public/projecticon.svg";
 
 interface ProjectGroupProps {}
@@ -19,8 +21,10 @@ const ProjectGroup: React.FC<ProjectGroupProps> = () => {
           <p className="text-[#EEEEEE] text-xl">Sample Project</p>
         </div>
         <div className="flex gap-2">
-          <Button>Audit Now</Button>
-          <Button variant="secondary">Options</Button>
+          <Button className="px-8">Audit Now</Button>
+          <Button variant="secondary" className="px-8" updates={true}>
+            Options
+          </Button>
         </div>
       </div>
       <Divider className="my-2" />
@@ -30,14 +34,14 @@ const ProjectGroup: React.FC<ProjectGroupProps> = () => {
           setOpenFiles={setOpenFiles}
         />
         <CodeEditor
+          language="javascript"
+          value={selctedFile?.content || ""}
+          openFiles={openFiles}
+          selectedFile={selctedFile}
           setSelectedFile={setSelectedFile}
           setOpenFiles={setOpenFiles}
-          language="javascript"
-          value={selctedFile.content}
         />
-        <div className="w-[25%] bg-[#13161a] text-[#CCCCCC] p-3 overflow-auto">
-          Count of Issues
-        </div>
+        <Issues />
       </div>
     </div>
   );
