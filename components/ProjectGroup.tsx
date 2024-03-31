@@ -1,12 +1,16 @@
+import { useState } from "react";
 import Image from "next/image";
 import Divider from "./Divider";
-import projecticon from "@/public/projecticon.svg";
 import Button from "./Button";
 import FileTree from "./FileTree";
 import CodeEditor from "./CodeEditor";
+import projecticon from "@/public/projecticon.svg";
 
 interface ProjectGroupProps {}
 const ProjectGroup: React.FC<ProjectGroupProps> = () => {
+  const [selctedFile, setSelectedFile] = useState({ name: "", content: "" });
+  const [openFiles, setOpenFiles] = useState([]);
+
   return (
     <div className="bg-[#191D23] h-full rounded-md p-3">
       <div className="flex justify-between">
@@ -21,17 +25,17 @@ const ProjectGroup: React.FC<ProjectGroupProps> = () => {
       </div>
       <Divider className="my-2" />
       <div className="flex gap-3">
-        <FileTree />
-        <CodeEditor
-          language="javascript"
-          value="function test(name,by,cy){
-            const age = cy-by;
-            const r = name+'is'+age;
-            return r;
-          }
-        console.log(test('alice',1871,1964));"
+        <FileTree
+          setSelectedFile={setSelectedFile}
+          setOpenFiles={setOpenFiles}
         />
-        <div className="w-[25%] bg-[#13161a] text-[#CCCCCC] p-3">
+        <CodeEditor
+          setSelectedFile={setSelectedFile}
+          setOpenFiles={setOpenFiles}
+          language="javascript"
+          value={selctedFile.content}
+        />
+        <div className="w-[25%] bg-[#13161a] text-[#CCCCCC] p-3 overflow-auto">
           Count of Issues
         </div>
       </div>

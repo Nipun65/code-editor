@@ -1,12 +1,19 @@
 import React, { useEffect, useRef } from "react";
-import { Editor, loader, useMonaco } from "@monaco-editor/react";
+import { Editor, loader } from "@monaco-editor/react";
 
 interface CodeEditorProps {
   language: string;
   value: string;
+  setSelectedFile: any;
+  setOpenFiles: any;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ language, value }) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({
+  language,
+  value,
+  setSelectedFile,
+  setOpenFiles,
+}) => {
   const editorRef = useRef<any>();
 
   const formatCode = () => {
@@ -28,7 +35,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ language, value }) => {
   }, []);
 
   return (
-    <div className="w-[50%]">
+    <div className="w-[50%] rounded-md bg-[#13161a] p-0.5">
       <Editor
         height="70vh"
         defaultLanguage="javascript"
