@@ -106,12 +106,14 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
           <>
             /{" "}
             <p
-              className={`${activeIndexStep.step === 1 ? "text-brightgray-500" : "text-slategray-500"} hover:opacity-80 cursor-pointer text-center`}
+              className={`${activeIndexStep.step === 1 ? "text-brightgray-500" : "text-slategray-500 cursor-pointer hover:opacity-80"}  text-center`}
               onClick={() => {
-                setActiveIndexStep({
-                  step: 1,
-                  index: undefined,
-                });
+                if (activeIndexStep.step === 2) {
+                  setActiveIndexStep({
+                    step: 1,
+                    index: undefined,
+                  });
+                }
               }}
             >
               {selectedIssue?.name.substring(
