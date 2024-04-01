@@ -27,24 +27,17 @@ interface ActiveIndexStep {
 
 interface IssueDetailProps {
   data: IssueDetailData;
-  setSelectedIssue: Dispatch<SetStateAction<Issue>>;
   setActiveIndexStep: Dispatch<SetStateAction<ActiveIndexStep>>;
 }
 
 export const IssueDetail: React.FC<IssueDetailProps> = ({
   data,
-  setSelectedIssue,
   setActiveIndexStep,
 }) => {
   return (
     <li
       className="flex gap-3 px-5 py-4 bg-darkgreen-500 hover:bg-azure-500 hover:opacity-70 cursor-pointer rounded"
       onClick={() => {
-        setSelectedIssue((preveState: Issue) => {
-          return {
-            ...preveState,
-          };
-        });
         setActiveIndexStep({
           index: data.index,
           step: 2,
@@ -64,21 +57,23 @@ export const IssueDetail: React.FC<IssueDetailProps> = ({
   );
 };
 
+const initialIssue = {
+  issues: [
+    {
+      id: "",
+      description: "",
+      remediation: "",
+      issueTitle: "",
+    },
+  ],
+  type: "",
+  name: "",
+  count: 0,
+};
+
 const Issues: React.FC<IssuesProps> = ({ className }) => {
   const [activeTab, setActiveTab] = useState(0);
-  const [selectedIssue, setSelectedIssue] = useState({
-    issues: [
-      {
-        id: "",
-        description: "",
-        remediation: "",
-        issueTitle: "",
-      },
-    ],
-    type: "",
-    name: "",
-    count: 0,
-  });
+  const [selectedIssue, setSelectedIssue] = useState(initialIssue);
 
   const [activeIndexStep, setActiveIndexStep] = useState<ActiveIndexStep>({
     index: undefined,
@@ -92,9 +87,19 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
         className
       )}
     >
-      <div className="flex items-center gap-2 mb-2 text-sm">
+      <div className="flex items-center gap-2 mb-2 text-xs">
         <p
-          className={`${selectedIssue.name.length <= 0 ? "text-xl" : "text-sm"}`}
+          className={`${selectedIssue.name.length <= 0 ? "text-2xl" : "text-xs hover:opacity-80 text-slategray-500 cursor-pointer"}`}
+          onClick={() => {
+            console.log(activeIndexStep);
+            if (selectedIssue.name.length !== 0) {
+              setSelectedIssue(initialIssue);
+              setActiveIndexStep({
+                step: 1,
+                index: undefined,
+              });
+            }
+          }}
         >
           Count of Issues
         </p>
@@ -102,9 +107,13 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
           <>
             /{" "}
             <p
-              className={
-                activeIndexStep.step === 1 ? "text-brightgray-500" : ""
-              }
+              className={`${activeIndexStep.step === 1 ? "text-brightgray-500" : "text-slategray-500"} hover:opacity-80 cursor-pointer text-center`}
+              onClick={() => {
+                setActiveIndexStep({
+                  step: 1,
+                  index: undefined,
+                });
+              }}
             >
               {selectedIssue?.name.substring(
                 0,
@@ -162,7 +171,6 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
                     <IssueDetail
                       key={issueDetail.id}
                       data={{ ...issueDetail, index: index }}
-                      setSelectedIssue={setSelectedIssue}
                       setActiveIndexStep={setActiveIndexStep}
                     />
                   );

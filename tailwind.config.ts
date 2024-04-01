@@ -19,6 +19,9 @@ const config: Config = {
         brightgray: {
           500: "#EEEEEE",
         },
+        darkgray: {
+          500: "#AAAAAA",
+        },
         azure: {
           500: "#007AFF",
           600: "#0063CC",

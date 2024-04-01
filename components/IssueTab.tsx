@@ -61,12 +61,12 @@ const IssueTab: React.FC<IssueTabProps> = ({
       </div>
       <Divider />
       {step === 1 ? (
-        <p className="text-[#AAAAAA] w-1/2 text-sm text-center flex items-center">
+        <p className="text-darkgray-500 w-1/2 text-sm text-center flex items-center justify-center">
           {data.name}
         </p>
       ) : (
         <div className="flex justify-between w-full items-center">
-          <p className="text-[#AAAAAA]">{data.name}</p>
+          <p className="text-darkgray-500">{data.name}</p>
           <Image src={arrow} alt="issue tab icon" />
         </div>
       )}
