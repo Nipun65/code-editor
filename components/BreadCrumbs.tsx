@@ -19,7 +19,7 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ data }) => {
             } text-sm`}
             key={value.name}
           >
-            {value.name} {index !== data.length - 1 && "/"}&nbsp;
+            {value.name} {index !== data.length - 1 && <>&nbsp;/&nbsp;</>}{" "}
           </Link>
         );
       })}

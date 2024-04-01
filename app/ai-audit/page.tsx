@@ -20,9 +20,7 @@ const AIAudit = () => {
   return (
     <Layout>
       <BreadCrumbs data={BreadCrumbsData} />
-      <div>
-        <ProjectGroup />
-      </div>
+      <ProjectGroup />
     </Layout>
   );
 };
