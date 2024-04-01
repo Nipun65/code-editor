@@ -83,13 +83,13 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
   return (
     <div
       className={twMerge(
-        `bg-chineseblack-500 text-chinesesilver-500 p-3 h-[70vh] rounded-md`,
+        `bg-chineseblack-500 text-slategray-500 p-3 h-[70vh] rounded-md`,
         className
       )}
     >
       <div className="flex items-center gap-2 mb-2 text-xs">
         <p
-          className={`${selectedIssue.name.length <= 0 ? "text-2xl" : "text-xs hover:opacity-80 text-slategray-500 cursor-pointer"}`}
+          className={`${selectedIssue.name.length <= 0 ? "text-2xl text-chinesesilver-500" : "text-xs hover:opacity-80 text-slategray-500 cursor-pointer"}`}
           onClick={() => {
             console.log(activeIndexStep);
             if (selectedIssue.name.length !== 0) {
