@@ -30,4 +30,4 @@ interface Issue {
   issues: IssueDetail[];
 }
 
-export type { File, Path, Issue };
+export type { File, Path, Issue, IssueDetail };

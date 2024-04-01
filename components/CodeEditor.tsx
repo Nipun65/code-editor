@@ -93,7 +93,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         className
       )}
     >
-      <ul className="flex overflow-auto mb-2 rounded-t-md">
+      <ul className="flex overflow-auto scrollbar mb-2 rounded-t-md">
         {openFiles.map((value: File) => {
           return (
             <FileTab

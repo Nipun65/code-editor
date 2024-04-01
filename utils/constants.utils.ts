@@ -167,36 +167,42 @@ const ISSUESDETAILS = [
 
 const ISSUES = [
   {
+    id: "a1b2c3d",
     name: "Total Issues Found",
     count: 446,
     type: "total",
     issues: ISSUESDETAILS,
   },
   {
+    id: "e4f5g6h",
     name: "High Severity Issues",
     count: 108,
     type: "high",
     issues: ISSUESDETAILS,
   },
   {
+    id: "i7j8k9l",
     name: "Medium Severity Issues",
     count: 143,
     type: "medium",
     issues: ISSUESDETAILS,
   },
   {
+    id: "m1n2o3p",
     name: "Low Severity Issues",
     count: 0,
     type: "low",
-    issues: ISSUESDETAILS,
+    issues: [],
   },
   {
+    id: "q4r5s6t",
     name: "Informational Issues",
     count: 68,
     type: "informational",
     issues: ISSUESDETAILS,
   },
   {
+    id: "u7v8w9x",
     name: "Optimisation Issues",
     count: 127,
     type: "optimisation",
@@ -204,4 +210,13 @@ const ISSUES = [
   },
 ];
 
-export { TABS, FILES, ISSUETABS, ISSUES, ISSUESDETAILS };
+const ISSUECOLORS: { [key: string]: string } = {
+  total: "bg-[#5481FE]",
+  high: "bg-[#FF4D4D]",
+  medium: "bg-[#FFD166]",
+  low: "bg-[#06D6A0]",
+  informational: "bg-[#E568FF]",
+  optimisation: "bg-[#66E3F4]",
+};
+
+export { TABS, FILES, ISSUETABS, ISSUES, ISSUESDETAILS, ISSUECOLORS };
