@@ -217,12 +217,12 @@ const ISSUES = [
 ];
 
 const ISSUECOLORS: { [key: string]: string } = {
-  total: "bg-[#5481FE]",
-  high: "bg-[#FF4D4D]",
-  medium: "bg-[#FFD166]",
-  low: "bg-[#06D6A0]",
-  informational: "bg-[#E568FF]",
-  optimisation: "bg-[#66E3F4]",
+  total: "bg-blueberry-500",
+  high: "bg-scarletred-500",
+  medium: "bg-crayola-500",
+  low: "bg-caribbeangreen-500",
+  informational: "bg-heliotrope-500",
+  optimisation: "bg-skyblue-500",
 };
 
 export { TABS, FILES, ISSUETABS, ISSUES, ISSUESDETAILS, ISSUECOLORS };

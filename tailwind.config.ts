@@ -57,6 +57,21 @@ const config: Config = {
         scarletred: {
           500: "#FF4D4D",
         },
+        blueberry: {
+          500: "#5481FE",
+        },
+        skyblue: {
+          500: "#66E3F4",
+        },
+        heliotrope: {
+          500: "#E568FF",
+        },
+        caribbeangreen: {
+          500: "#06D6A0",
+        },
+        crayola: {
+          500: "#FFD166",
+        },
       },
     },
   },

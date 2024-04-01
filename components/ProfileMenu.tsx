@@ -20,7 +20,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
   return (
     <>
       <div
-        className="flex gap-4 items-center text-brightgray-500"
+        className="flex gap-4 items-center text-chinesesilver-500"
         onClick={() => {
           setIsOpen(!isOpen);
         }}
