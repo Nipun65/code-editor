@@ -69,6 +69,7 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
   const [selectedIssue, setSelectedIssue] = useState({
     issues: [
       {
+        id: "",
         description: "",
         remediation: "",
         issueTitle: "",
@@ -151,6 +152,7 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
                 (issueDetail: IssueDetailsType, index: number) => {
                   return (
                     <IssueDetail
+                      key={issueDetail.id}
                       data={{ ...issueDetail, index: index }}
                       setSelectedIssue={setSelectedIssue}
                       setActiveIndexStep={setActiveIndexStep}

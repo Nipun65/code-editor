@@ -18,6 +18,7 @@ interface Path {
 }
 
 interface IssueDetail {
+  id: string;
   issueTitle: string;
   description: string;
   remediation: string;
