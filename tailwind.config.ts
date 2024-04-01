@@ -13,6 +13,7 @@ const config: Config = {
       },
       colors: {
         darkgreen: {
+          400: "#3E4756",
           500: "#191D23",
         },
         brightgray: {

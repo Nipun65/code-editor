@@ -1,8 +1,9 @@
+import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import arrow from "@/public/arrow.svg";
+import Divider from "./Divider";
 import profile from "@/public/profile.svg";
-import { Dispatch, SetStateAction } from "react";
-
+import logout from "@/public/logout.svg";
 interface ProfileMenuProps {
   data: {
     name: string;
@@ -33,9 +34,16 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({
         />
       </div>
       {isOpen && (
-        <div className="rounded absolute top-11 -right-4 p-4 px-6 z-10 shadow bg-darkgreen-500 text-brightgray-500">
-          <p className="font-bold">{data?.name}</p>
-          <p className="font-medium">{data?.email}</p>
+        <div className="rounded absolute top-11 -right-2 z-10 shadow bg-darkgreen-400 text-chinesesilver-500">
+          <div className="p-4 px-6">
+            <p className="font-bold m-0">{data?.name}</p>
+            <p className="font-medium opacity-70 -mt-1">{data?.email}</p>
+          </div>
+          <Divider className="mt-3 border-opacity-50 border-brightgray-500" />
+          <div className="flex items-center gap-3 px-6 py-2 rounded-b hover:bg-brightgray-500 hover:bg-opacity-20">
+            <Image src={logout} alt="logout icon" className="size-4" />
+            <p>LogOut</p>
+          </div>
         </div>
       )}
     </>
