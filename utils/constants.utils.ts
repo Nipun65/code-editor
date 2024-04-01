@@ -36,8 +36,41 @@ const FILES: File[] = [
       {
         name: "layout",
         type: "file",
-        extension: ".tsx",
-        content: `const hello=()=> {\n alert('Hello world!');\n}`,
+        extension: ".ts",
+        content: `
+        export interface LayoutOptions {
+          title?: string;
+          centered?: boolean;
+          header?: string;
+          footer?: string;
+        }
+    
+        export function createLayout(content: string, options: LayoutOptions = {}): string {
+          const { title, centered, header, footer } = options;
+          let layout = \`<div class="\${centered ? 'layout layout--centered' : 'layout'}">\`;
+    
+          if (title) {
+            layout += \`<h1 class="layout__title">\${title}</h1>\`;
+          }
+    
+          if (header) {
+            layout += \`<header class="layout__header">\${header}</header>\`;
+          }
+    
+          layout += \`<main class="layout__main">\${content}</main>\`;
+    
+          if (footer) {
+            layout += \`<footer class="layout__footer">\${footer}</footer>\`;
+          }
+    
+          layout += \`</div>\`;
+          return layout;
+        }
+    
+        export function createContainer(content: string): string {
+          return \`<div class="container">\${content}</div>\`;
+        }
+      `,
         isSelectedFile: false,
         parentId: 1,
         id: 2,
@@ -45,8 +78,21 @@ const FILES: File[] = [
       {
         name: "page",
         type: "file",
-        extension: ".tsx",
-        content: "console.log('page.tsx')",
+        extension: ".ts",
+        content: `const promise = new Promise<string>((resolve, reject) => {
+          setTimeout(() => {
+            const randomNumber = Math.random();
+            if (randomNumber > 0.5) {
+              resolve('Success!');
+            } else {
+              reject('Failure!');
+            }
+          }, 2000);
+        });
+        
+        promise
+          .then(result => console.log(result))
+          .catch(error => console.error(error));`,
         isSelectedFile: false,
         parentId: 1,
         id: 3,
@@ -57,7 +103,9 @@ const FILES: File[] = [
     name: "next.config",
     type: "file",
     extension: ".mjs",
-    content: "console.log('next.config.mjs')",
+    content: `const nextConfig = {}; \n
+    export default nextConfig;
+    `,
     isSelectedFile: false,
     id: 4,
     parentId: 0,
@@ -70,26 +118,36 @@ const FILES: File[] = [
     parentId: 0,
     children: [
       {
-        name: "svgs",
+        name: "utils",
         type: "dir",
         extension: "",
         id: 6,
         parentId: 5,
         children: [
           {
-            name: "Arrow",
+            name: "helpers",
             type: "file",
-            extension: ".tsx",
-            content: `console.log('Arrow.tsx')`,
+            extension: ".ts",
+            content: `const add = (a: number, b: number): number => a + b;
+            const square = (x: number): number => x * x;
+            const greet = (name: string): string => \`\Hello, \${name}!\`;
+            const isEven = (num: number): boolean => num % 2 === 0;
+            const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
+            
+            export { add, square, greet, isEven, capitalize };`,
             isSelectedFile: false,
             id: 7,
             parentId: 6,
           },
           {
-            name: "Cross",
+            name: "constants",
             type: "file",
-            extension: ".tsx",
-            content: "console.log('Cross.tsx')",
+            extension: ".ts",
+            content: `const PI = 3.14159;
+            const GREETING = "Hello";
+            const MAX_ATTEMPTS = 5;
+            const COLORS = ["red", "green", "blue"];
+            export { PI, GREETING, MAX_ATTEMPTS, COLORS };`,
             isSelectedFile: false,
             id: 8,
             parentId: 6,
@@ -97,22 +155,82 @@ const FILES: File[] = [
         ],
       },
       {
-        name: "Divider",
+        name: "Person",
         type: "file",
-        extension: ".tsx",
+        extension: ".ts",
         isSelectedFile: false,
         id: 9,
         parentId: 5,
-        content: `console.log('Divider.tsx')`,
+        content: `interface Person {
+          name: string;
+          age: number;
+          isStudent: boolean;
+        }
+        
+        const person1: Person = {
+          name: 'John Doe',
+          age: 25,
+          isStudent: false,
+        };
+        
+        function greetPerson(person: Person): string {
+          return \`Hello, \${person.name}!\`;
+        }
+        
+        console.log(greetPerson(person1));`,
       },
       {
-        name: "Button",
+        name: "Book",
         type: "file",
-        extension: ".tsx",
+        extension: ".ts",
         isSelectedFile: false,
         id: 10,
         parentId: 5,
-        content: "console.log('Button.tsx')",
+        content: `
+        interface Book {
+          title: string;
+          author: string;
+          published: number;
+          available: boolean;
+        }
+        
+        const books: Book[] = [
+          {
+            title: 'The Great Gatsby',
+            author: 'F. Scott Fitzgerald',
+            published: 1925,
+            available: true,
+          },
+          {
+            title: 'To Kill a Mockingbird',
+            author: 'Harper Lee',
+            published: 1960,
+            available: false,
+          },
+          {
+            title: '1984',
+            author: 'George Orwell',
+            published: 1949,
+            available: true,
+          },
+        ];
+        
+        function findAvailableBooks(bookList: Book[]): Book[] {
+          return bookList.filter((book) => book.available);
+        }
+        
+        function createBook(title: string, author: string, published: number, available: boolean): Book
+        {
+          return { title, author, published, available };
+        }
+        
+        books.push(createBook('The Story Book', 'Author', 1932, true));
+
+        console.log('Available Books:');
+        const availableBooks = findAvailableBooks(books);
+        availableBooks.forEach((book) => {
+          console.log(\`Title: \${book.title}, Author: \${book.author}\`);
+        });`,
       },
     ],
   },

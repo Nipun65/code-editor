@@ -36,7 +36,7 @@ export const IssueDetail: React.FC<IssueDetailProps> = ({
 }) => {
   return (
     <li
-      className="flex gap-3 px-5 py-4 bg-darkgreen-500 hover:bg-azure-500 hover:opacity-70 cursor-pointer rounded"
+      className="flex gap-3 px-5 py-4 bg-darkgreen-500 text-chinesesilver-500 hover:bg-azure-500 hover:bg-opacity-70 cursor-pointer rounded"
       onClick={() => {
         setActiveIndexStep({
           index: data.index,
@@ -91,7 +91,6 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
         <p
           className={`${selectedIssue.name.length <= 0 ? "text-2xl text-chinesesilver-500" : "text-xs hover:opacity-80 text-slategray-500 cursor-pointer"}`}
           onClick={() => {
-            console.log(activeIndexStep);
             if (selectedIssue.name.length !== 0) {
               setSelectedIssue(initialIssue);
               setActiveIndexStep({
