@@ -145,7 +145,11 @@ const FileTree: React.FC<FileTreeProps> = ({
         >
           <File fill={obj.isSelectedFile ? "#0270e8" : "#AAAAAA"} />
           <span
-            className={obj.isSelectedFile ? "text-[#0270e8]" : "text-[#CCCCCC]"}
+            className={
+              obj.isSelectedFile
+                ? "text-brandeisblue-500"
+                : "text-chinesesilver-500"
+            }
           >
             {obj.name}
             {obj.extension}
@@ -169,7 +173,7 @@ const FileTree: React.FC<FileTreeProps> = ({
       };
 
       return (
-        <ul key={obj.id} className="text-[#CCCCCC] mt-2 cursor-pointer">
+        <ul key={obj.id} className="text-chinesesilver-500 mt-2 cursor-pointer">
           <li
             tabIndex={0}
             className="flex items-center gap-2"
@@ -186,7 +190,7 @@ const FileTree: React.FC<FileTreeProps> = ({
             />
             <Folder fill={!obj.isOpen} />
             <span
-              className={`${obj.isOpen ? "text-[#0270e8]" : "text-[#CCCCCC]"}`}
+              className={`${obj.isOpen ? "text-brandeisblue-500" : "text-chinesesilver-500"}`}
             >
               {obj.name}
             </span>
@@ -199,9 +203,12 @@ const FileTree: React.FC<FileTreeProps> = ({
 
   return (
     <div
-      className={twMerge(`bg-[#13161a] p-3 rounded-md max-h-[70vh]`, className)}
+      className={twMerge(
+        `bg-chineseblack-500 p-3 rounded-md max-h-[70vh]`,
+        className
+      )}
     >
-      <p className="text-[#CCCCCC] mb-2">Folder & Files</p>
+      <p className="text-chinesesilver-500 mb-2">Folder & Files</p>
       <Divider />
       {data}
     </div>

@@ -11,14 +11,14 @@ const Navbar: React.FC<NavbarProps> = ({ data }) => {
   const path = usePathname();
 
   return (
-    <nav className="flex gap-4 text-[#5d677d]">
+    <nav className="flex gap-4 text-darkelectricblue-500">
       {data.map((value: Path) => {
         return (
           <Link
             href={value.path}
             className={`${
-              path === value.path ? "text-[#1283ff] nav-border" : ""
-            } font-medium hover:text-[#3875b6] xs:text-xs lg:text-base`}
+              path === value.path ? "text-azure-500 nav-border" : ""
+            } font-medium hover:text-azure-600 xs:text-xs lg:text-base`}
             key={value.name}
           >
             {value.name}

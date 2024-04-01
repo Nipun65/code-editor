@@ -4,7 +4,7 @@ interface DividerProps {
   className?: string;
 }
 const Divider: React.FC<DividerProps> = ({ className }) => {
-  return <div className={twMerge("border border-[#2b2f35]", className)} />;
+  return <div className={twMerge("border border-gunmetal-500", className)} />;
 };
 
 export default Divider;

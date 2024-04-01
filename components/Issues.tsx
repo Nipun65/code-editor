@@ -38,7 +38,7 @@ export const IssueDetail: React.FC<IssueDetailProps> = ({
 }) => {
   return (
     <li
-      className="flex gap-3 px-5 py-4 bg-[#191d23] hover:bg-[#007AFFB3] cursor-pointer rounded"
+      className="flex gap-3 px-5 py-4 bg-darkgreen-500 hover:bg-azure-500 hover:opacity-70 cursor-pointer rounded"
       onClick={() => {
         setSelectedIssue((preveState: Issue) => {
           return {
@@ -52,8 +52,8 @@ export const IssueDetail: React.FC<IssueDetailProps> = ({
       }}
     >
       <div className="flex w-11/12 items-center gap-3">
-        <p className="text-[#EEEEEE]">
-          #{data.index + 1}.&nbsp;{data.issueTitle}
+        <p className="text-brightgray-500">
+          #{data.index + 1}. {data.issueTitle}
         </p>
       </div>
       <Divider />
@@ -88,7 +88,7 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
   return (
     <div
       className={twMerge(
-        `bg-[#13161a] text-[#CCCCCC] p-3 h-[70vh] rounded-md`,
+        `bg-chineseblack-500 text-chinesesilver-500 p-3 h-[70vh] rounded-md`,
         className
       )}
     >
@@ -100,16 +100,24 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
         </p>
         {selectedIssue?.name ? (
           <>
-            /&nbsp;
-            <p className={activeIndexStep.step === 1 ? "text-[#EEEEEE]" : ""}>
+            /{" "}
+            <p
+              className={
+                activeIndexStep.step === 1 ? "text-brightgray-500" : ""
+              }
+            >
               {selectedIssue?.name.substring(
                 0,
                 selectedIssue?.name.indexOf("Issues") + "Issues".length
               )}
             </p>
-            {activeIndexStep?.step === 2 && <>/&nbsp;</>}
-            {activeIndexStep.index && (
-              <p className={activeIndexStep.step === 2 ? "text-[#EEEEEE]" : ""}>
+            {activeIndexStep?.step === 2 && <>/ </>}
+            {activeIndexStep.index !== undefined && (
+              <p
+                className={
+                  activeIndexStep.step === 2 ? "text-brightgray-500" : ""
+                }
+              >
                 {activeIndexStep?.step === 2
                   ? `Issue #${activeIndexStep.index + 1}`
                   : ""}
@@ -162,18 +170,20 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
               )}
             </ul>
           ) : (
-            <p className="text-center text-[#CCCCCC] text-xl">No Issues</p>
+            <p className="text-center text-chinesesilver-500 text-xl">
+              No Issues Found
+            </p>
           )}
         </>
       )}
 
       {activeIndexStep?.step === 2 && (
         <div className="flex flex-col gap-3 my-3">
-          <div className="flex gap-3 items-center justify-start rounded px-5 py-4 bg-[#191d23]">
+          <div className="flex gap-3 items-center justify-start rounded px-5 py-4 bg-darkgreen-500">
             <p
               className={`rounded-full min-h-3 min-w-3 max-h-3 max-w-3 ${constants?.ISSUECOLORS[selectedIssue.type]}`}
             />
-            {activeIndexStep.index && (
+            {activeIndexStep.index !== undefined && (
               <p>
                 #{activeIndexStep.index + 1}.{" "}
                 {
@@ -183,17 +193,20 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
               </p>
             )}
           </div>
-          <div className="bg-[#191d23]  p-3 rounded">
+
+          <div className="bg-darkgreen-500 p-3 rounded">
             <div className="overflow-auto scrollbar h-[35vh]">
-              <p className="text-[#0371E9]">Description:</p>
-              <p className="text-[#CCCCCC]">
+              <p className="text-brandeisblue-500 font-medium">Description:</p>
+              <p className="text-chinesesilver-500">
                 {
                   selectedIssue?.issues[activeIndexStep.index as number]
                     ?.description
                 }
               </p>
-              <p className="mt-4 text-[#0371E9]">Remediation:</p>
-              <p className="text-[#CCCCCC]">
+              <p className="mt-4 text-brandeisblue-500 font-medium">
+                Remediation:
+              </p>
+              <p className="text-chinesesilver-500">
                 {
                   selectedIssue?.issues[activeIndexStep.index as number]
                     ?.remediation
@@ -204,7 +217,7 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
             <div className="flex flex-col gap-2">
               <div className="flex gap-3 justify-end mt-3">
                 <Button className="px-8">Auto Fix Code</Button>
-                <Button className="bg-transparent border rounded-md p-4 py-3 border-[#FF4D4D]">
+                <Button className="bg-transparent border rounded-md p-4 py-3 border-scarletred-500 hover:bg-transparent hover:opacity-80">
                   <Image src={flag} alt="flag" />
                 </Button>
               </div>
@@ -225,7 +238,7 @@ const Issues: React.FC<IssuesProps> = ({ className }) => {
           <Divider className="mt-3" />
           <div className="flex gap-2 items-center mt-4">
             <Input type="checkbox" className="size-4 cursor-pointer" />
-            <p className="text-[#EEEEEE]">Exclude Dependencies</p>
+            <p className="text-brightgray-500">Exclude Dependencies</p>
           </div>
         </>
       )}

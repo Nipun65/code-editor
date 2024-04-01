@@ -14,9 +14,9 @@ const Button: React.FC<ButtonProps> = ({
   updates,
 }) => {
   const TYPES: { [key: string]: string } = {
-    default: "bg-[#007aFF] text-white hover:opacity-90",
+    default: "bg-azure-500 text-white hover:bg-azure-600",
     secondary:
-      "bg-[#152c46] text-[#007aff] hover:text-white hover:bg-[#007aFFB3]",
+      "bg-yankeesblue-500 text-azure-500 hover:text-white hover:bg-azure-700",
   };
 
   return (
@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
     >
       {children}
       {updates && (
-        <span className="absolute size-3 bg-[#FF6F50] rounded-full -right-1 -top-0.5"></span>
+        <span className="absolute size-3 bg-outrageousorange-500 rounded-full -right-1 -top-0.5"></span>
       )}
     </button>
   );

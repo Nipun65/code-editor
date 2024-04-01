@@ -28,11 +28,11 @@ const ProjectGroup: React.FC<ProjectGroupProps> = () => {
   const [openFiles, setOpenFiles] = useState<File[]>([]);
 
   return (
-    <div className="bg-[#191D23] h-fit rounded-md p-3">
+    <div className="bg-darkgreen-500 h-fit rounded-md p-3">
       <div className="flex justify-between">
         <div className="flex gap-1 items-center">
           <Image src={projecticon} alt="project icon" />
-          <p className="text-[#EEEEEE] text-xl">Sample Project</p>
+          <p className="text-brightgray-500 text-xl">Sample Project</p>
         </div>
         <div className="flex gap-2">
           <Button className="px-8">Audit Now</Button>

@@ -80,7 +80,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           (value: File) =>
             !(value.id === file.id && value.parentId === file.parentId)
         );
-
         return result;
       });
     }
@@ -89,7 +88,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   return (
     <div
       className={twMerge(
-        "rounded-md bg-[#13161a] h-[70vh] relative",
+        "rounded-md bg-chineseblack-500 h-[70vh] relative",
         className
       )}
     >
@@ -126,7 +125,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         theme="custom-theme"
       />
       <div
-        className="absolute bottom-3 -left-2 rounded-md bg-[#007AFF] p-1 cursor-pointer"
+        className="absolute bottom-3 -left-2 rounded-md bg-azure-500 p-1 cursor-pointer"
         onClick={() => {
           setCollapseSideBar((preveState) => {
             return { ...preveState, filetree: !preveState.filetree };
@@ -138,7 +137,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         />
       </div>
       <div
-        className="absolute bottom-3 -right-2 rounded-md bg-[#007AFF] p-1 cursor-pointer"
+        className="absolute bottom-3 -right-2 rounded-md bg-azure-500 p-1 cursor-pointer"
         onClick={() => {
           setCollapseSideBar((preveState) => {
             return { ...preveState, issues: !preveState.issues };

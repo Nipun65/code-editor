@@ -13,7 +13,9 @@ const BreadCrumbs: React.FC<BreadCrumbsProps> = ({ data }) => {
           <Link
             href={value.path}
             className={`${
-              index === data.length - 1 ? "text-[#EEEEEE]" : "text-[#7b8191]"
+              index === data.length - 1
+                ? "text-brightgray-500"
+                : "text-slate-500"
             } text-sm`}
             key={value.name}
           >

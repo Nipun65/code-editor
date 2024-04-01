@@ -17,13 +17,13 @@ const Tabs: React.FC<TabsProps> = ({
   return (
     <ul
       className={twMerge(
-        "p-1 flex gap-2 w-full text-center bg-[#1E232B] rounded justify-center",
+        "p-1 flex gap-2 w-full text-center bg-darkgunmetal-500 rounded justify-center",
         className
       )}
     >
       {data.map((value: string, index: number) => (
         <li
-          className={`${activeTab === index ? "text-white bg-[#007AFF] hover:opacity-80" : "text-[#5D677D] hover:bg-[#007AFF66] hover:text-white"} cursor-pointer px-6 py-2 rounded-md xs:text-xs lg:text-sm w-1/2 flex items-center justify-center`}
+          className={`${activeTab === index ? "text-white bg-azure-500  hover:bg-azure-600" : "text-darkelectricblue-500  hover:bg-azure-700 hover:text-white"} cursor-pointer px-6 py-2 rounded-md xs:text-xs lg:text-sm w-1/2 flex items-center justify-center`}
           onClick={() => setActiveTab(index)}
           key={value}
         >

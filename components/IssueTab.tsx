@@ -37,7 +37,7 @@ const IssueTab: React.FC<IssueTabProps> = ({
   return (
     <div
       className={twMerge(
-        `flex gap-3 px-5 py-4 bg-[#191d23] rounded ${step !== 1 ? "hover:bg-[#007AFFB3] cursor-pointer" : ""}`,
+        `flex gap-3 px-5 py-4 bg-darkgreen-500 rounded ${step !== 1 ? "hover:bg-azure-600 cursor-pointer" : ""}`,
         className
       )}
       onClick={() => {
@@ -55,7 +55,7 @@ const IssueTab: React.FC<IssueTabProps> = ({
         <p
           className={`rounded-full min-h-3 min-w-3 ${ISSUECOLORS[data?.type]}`}
         />
-        <p className="text-2xl font-semibold text-[#EEEEEE]">
+        <p className="text-2xl font-semibold text-brightgray-500">
           {data.count.toString().padStart(2, "0")}
         </p>
       </div>
